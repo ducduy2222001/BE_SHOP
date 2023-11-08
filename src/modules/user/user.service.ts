@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from './user.entity';
@@ -15,8 +15,9 @@ export class UserService {
     try {
       await this.userRepository.save(user);
     } catch (error) {
-      throw new ForbiddenException();
+      throw new ConflictException('No No');
     }
+    return 'A new user is created successfully';
   }
 
   findAll(): Promise<User[]> {
