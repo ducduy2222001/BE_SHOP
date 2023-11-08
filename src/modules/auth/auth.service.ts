@@ -15,7 +15,7 @@ export class AuthService {
     const comparePass = bcrypt.compareSync(pass, user.password);
 
     if (comparePass === false) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid user credentials');
     }
 
     const payload = { sub: user.id, email_address: user.email_address };
