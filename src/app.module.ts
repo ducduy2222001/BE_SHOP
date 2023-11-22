@@ -8,16 +8,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './modules/user/user.entity';
 import { DatabaseModule } from './core/database/database.module';
 import { UserController } from './modules/user/user.controller';
+import { UserAddressController } from './modules/user_address/user_address.controller';
+import { UserAddressModule } from './modules/user_address/user_address.module';
+import { UserAddress } from './modules/user_address/user_address.entity';
 
 @Module({
   imports: [
     AuthModule,
     ConfigModule.forRoot({}),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, UserAddress]),
     DatabaseModule,
     UserModule,
+    UserAddressModule,
   ],
-  controllers: [AppController, UserController],
+  controllers: [AppController, UserController, UserAddressController],
   providers: [AppService],
 })
 export class AppModule {}
