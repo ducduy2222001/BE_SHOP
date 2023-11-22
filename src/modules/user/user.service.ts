@@ -24,7 +24,7 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findEmail(email_address: string): Promise<User> {
-    return this.userRepository.findOneBy({ email_address });
+  findEmail(email: string): Promise<User> {
+    return this.userRepository.findOneBy({ email });
   }
 }
