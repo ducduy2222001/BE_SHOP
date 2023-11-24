@@ -1,12 +1,16 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinTable,
+  JoinColumn,
+  OneToOne,
   ManyToMany,
-  PrimaryGeneratedColumn,
+  CreateDateColumn,
   UpdateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { User } from '../user/user.entity';
 import { Product } from '../product/product.entity';
 
 @Entity()
@@ -35,4 +39,8 @@ export class Cart {
   @ManyToMany(() => Product, (product) => product.cart)
   @JoinTable()
   product: Product[];
+
+  @OneToOne(() => User)
+  @JoinColumn()
+  user: User;
 }

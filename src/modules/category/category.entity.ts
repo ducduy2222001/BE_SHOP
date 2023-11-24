@@ -1,8 +1,7 @@
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
+  OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
@@ -11,24 +10,15 @@ import {
 import { Product } from '../product/product.entity';
 
 @Entity()
-export class Promotion {
+export class Category {
   @PrimaryGeneratedColumn()
   id: string;
 
   @Column()
-  promotion_name: string;
-
-  @Column()
-  discount_percentage: number;
+  category_name: string;
 
   @Column()
   description: string;
-
-  @Column()
-  startDate: Date;
-
-  @Column()
-  EndDate: Date;
 
   @CreateDateColumn()
   create_at: Date;
@@ -36,7 +26,6 @@ export class Promotion {
   @UpdateDateColumn()
   update_at: Date;
 
-  @ManyToMany(() => Product, (product) => product.promotion)
-  @JoinTable()
+  @OneToMany(() => Product, (product) => product.category)
   product: Product[];
 }

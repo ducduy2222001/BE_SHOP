@@ -1,12 +1,18 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
+  ManyToOne,
+  OneToMany,
   ManyToMany,
-  PrimaryGeneratedColumn,
+  CreateDateColumn,
   UpdateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { Cart } from '../cart/cart.entity';
+import { Order } from '../order/order.entity';
+import { Review } from '../review/review.entity';
+import { Category } from '../category/category.entity';
 import { Promotion } from '../promotion/promotion.entity';
 
 @Entity()
@@ -43,4 +49,13 @@ export class Product {
 
   @ManyToMany(() => Promotion, (promotion) => promotion.product)
   promotion: Promotion[];
+
+  @ManyToOne(() => Category, (category) => category.product)
+  category: Category;
+
+  @OneToMany(() => Review, (review) => review.product)
+  review: Review[];
+
+  @ManyToMany(() => Order, (order) => order.product)
+  order: Order[];
 }

@@ -1,29 +1,36 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthModule } from './modules/auth/auth.module';
-import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { User } from './modules/user/user.entity';
-import { DatabaseModule } from './core/database/database.module';
-import { UserController } from './modules/user/user.controller';
-import { UserAddressController } from './modules/user_address/user_address.controller';
-import { UserAddressModule } from './modules/user_address/user_address.module';
-import { UserAddress } from './modules/user_address/user_address.entity';
-import { RoleModule } from './modules/role/role.module';
-import { RoleController } from './modules/role/role.controller';
 import { Role } from './modules/role/role.entity';
-import { CartController } from './modules/cart/cart.controller';
-import { CartModule } from './modules/cart/cart.module';
 import { Cart } from './modules/cart/cart.entity';
-import { ProductModule } from './modules/product/product.module';
-import { ProductController } from './modules/product/product.controller';
+import { Order } from './modules/order/order.entity';
+import { Review } from './modules/review/review.entity';
 import { Product } from './modules/product/product.entity';
-import { PromotionController } from './modules/promotion/promotion.controller';
-import { PromotionService } from './modules/promotion/promotion.service';
-import { PromotionModule } from './modules/promotion/promotion.module';
+import { Payment } from './modules/payment/payment.entity';
+import { Category } from './modules/category/category.entity';
 import { Promotion } from './modules/promotion/promotion.entity';
+import { OrderStatus } from './modules/order_status/order_status.entity';
+import { UserAddress } from './modules/user_address/user_address.entity';
+
+import { AppService } from './app.service';
+import { AppController } from './app.controller';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
+import { RoleModule } from './modules/role/role.module';
+import { CartModule } from './modules/cart/cart.module';
+import { OrderModule } from './modules/order/order.module';
+import { ReviewModule } from './modules/review/review.module';
+import { ProductModule } from './modules/product/product.module';
+import { DatabaseModule } from './core/database/database.module';
+import { PaymentModule } from './modules/payment/payment.module';
+import { PayTypeModule } from './modules/pay_type/pay_type.module';
+import { CategoryModule } from './modules/category/category.module';
+import { PromotionModule } from './modules/promotion/promotion.module';
+import { UserAddressModule } from './modules/user_address/user_address.module';
+import { OrderStatusModule } from './modules/order_status/order_status.module';
+import { PayType } from './modules/pay_type/pay_type.entity';
 
 @Module({
   imports: [
@@ -36,6 +43,12 @@ import { Promotion } from './modules/promotion/promotion.entity';
       Cart,
       Product,
       Promotion,
+      Category,
+      Review,
+      Order,
+      OrderStatus,
+      Payment,
+      PayType,
     ]),
     DatabaseModule,
     UserModule,
@@ -44,16 +57,14 @@ import { Promotion } from './modules/promotion/promotion.entity';
     CartModule,
     ProductModule,
     PromotionModule,
+    CategoryModule,
+    ReviewModule,
+    OrderModule,
+    OrderStatusModule,
+    PaymentModule,
+    PayTypeModule,
   ],
-  controllers: [
-    AppController,
-    UserController,
-    UserAddressController,
-    RoleController,
-    CartController,
-    ProductController,
-    PromotionController,
-  ],
-  providers: [AppService, PromotionService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
