@@ -1,17 +1,17 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
+  CreateDateColumn,
   UpdateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserAddress } from '../user_address/user_address.entity';
+
 import { Role } from '../role/role.entity';
-import { Cart } from '../cart/cart.entity';
+import { Order } from '../order/order.entity';
+import { Payment } from '../payment/payment.entity';
+import { UserAddress } from '../user_address/user_address.entity';
 
 @Entity()
 export class User {
@@ -42,10 +42,12 @@ export class User {
   @OneToMany(() => UserAddress, (user_address) => user_address.user)
   user_address: UserAddress[];
 
-  @ManyToOne(() => Role, (role) => role.user)
+  @ManyToOne(() => Role, (role) => role.users)
   role: Role;
 
-  @OneToOne(() => Cart)
-  @JoinColumn()
-  cart: Cart;
+  @OneToMany(() => Order, (order) => order.user)
+  order: Order[];
+
+  @OneToMany(() => Payment, (payment) => payment.user)
+  payment: Payment[];
 }
