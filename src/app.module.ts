@@ -9,6 +9,7 @@ import { Order } from './modules/order/order.entity';
 import { Review } from './modules/review/review.entity';
 import { Product } from './modules/product/product.entity';
 import { Payment } from './modules/payment/payment.entity';
+import { PayType } from './modules/pay_type/pay_type.entity';
 import { Category } from './modules/category/category.entity';
 import { Promotion } from './modules/promotion/promotion.entity';
 import { OrderStatus } from './modules/order_status/order_status.entity';
@@ -30,7 +31,6 @@ import { CategoryModule } from './modules/category/category.module';
 import { PromotionModule } from './modules/promotion/promotion.module';
 import { UserAddressModule } from './modules/user_address/user_address.module';
 import { OrderStatusModule } from './modules/order_status/order_status.module';
-import { PayType } from './modules/pay_type/pay_type.entity';
 
 @Module({
   imports: [
