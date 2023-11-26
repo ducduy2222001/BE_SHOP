@@ -1,7 +1,13 @@
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Injectable, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  Param,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { User } from './user.entity';
 
@@ -23,6 +29,21 @@ export class UserService {
 
   findAll(): Promise<User[]> {
     return this.userRepository.find();
+  }
+
+  async findOne(@Param('id') id: number): Promise<User> {
+    if (!Number(id)) {
+      throw new BadRequestException('Invalid id');
+    }
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
+
+  async delete(@Param('id') id: number) {
+    return await this.userRepository.delete(id);
   }
 
   findEmail(email: string): Promise<User> {
