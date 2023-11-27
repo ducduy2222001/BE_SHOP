@@ -34,7 +34,6 @@ import { OrderStatusModule } from './modules/order_status/order_status.module';
 
 @Module({
   imports: [
-    AuthModule,
     ConfigModule.forRoot({}),
     TypeOrmModule.forFeature([
       User,
@@ -50,6 +49,7 @@ import { OrderStatusModule } from './modules/order_status/order_status.module';
       Payment,
       PayType,
     ]),
+    AuthModule,
     DatabaseModule,
     UserModule,
     UserAddressModule,
