@@ -69,6 +69,7 @@ export class UserService {
     return this.userRepository.findOneBy({ first_name });
   }
 
+  //validateUser chung cho mọi trường hợp trên
   private async validateUser(id: number) {
     if (!Number(id)) {
       throw new BadRequestException('Invalid id');
