@@ -18,4 +18,6 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   last_name: string;
+
+  role: string;
 }
