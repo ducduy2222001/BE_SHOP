@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AccessControlModule } from 'nest-access-control';
 
 import { User } from './modules/user/user.entity';
 import { Role } from './modules/role/role.entity';
@@ -32,9 +33,12 @@ import { PromotionModule } from './modules/promotion/promotion.module';
 import { UserAddressModule } from './modules/user_address/user_address.module';
 import { OrderStatusModule } from './modules/order_status/order_status.module';
 
+import { roles } from './modules/role/enum/role.enum';
+
 @Module({
   imports: [
     ConfigModule.forRoot({}),
+    AccessControlModule.forRoles(roles),
     TypeOrmModule.forFeature([
       User,
       UserAddress,

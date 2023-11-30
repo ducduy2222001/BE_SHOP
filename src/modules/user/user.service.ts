@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 
 import { User } from './user.entity';
+import { Role } from '../role/role.entity';
 
 const selectUser: string[] = [
   'id',
@@ -17,6 +18,7 @@ const selectUser: string[] = [
   'phone_number',
   'first_name',
   'last_name',
+  'role',
   'created_at',
   'updated_at',
 ];
@@ -25,10 +27,22 @@ const selectUser: string[] = [
 export class UserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Role) private roleRepository: Repository<Role>,
   ) {}
 
   async create(user: any): Promise<any> {
+    let adminRole = await this.roleRepository.findOne({
+      where: { role_name: 'admin' },
+    });
+
+    if (!adminRole) {
+      adminRole = this.roleRepository.create({ role_name: 'admin' });
+      await this.roleRepository.save(adminRole);
+    }
+
     user.password = bcrypt.hashSync(user.password, 8);
+    user.role = adminRole;
+
     try {
       await this.userRepository.save(user);
     } catch (error) {
@@ -69,6 +83,14 @@ export class UserService {
     return this.userRepository.findOneBy({ first_name });
   }
 
+  async findOneRole(id: number): Promise<User> {
+    return this.userRepository.findOne({
+      where: { id },
+      relations: ['role'],
+    });
+  }
+
+  //validateUser chung cho mọi trường hợp trên
   private async validateUser(id: number) {
     if (!Number(id)) {
       throw new BadRequestException('Invalid id');
