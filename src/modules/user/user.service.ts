@@ -31,17 +31,17 @@ export class UserService {
   ) {}
 
   async create(user: any): Promise<any> {
-    let adminRole = await this.roleRepository.findOne({
-      where: { role_name: 'admin' },
+    let userRole = await this.roleRepository.findOne({
+      where: { role_name: user.role },
     });
 
-    if (!adminRole) {
-      adminRole = this.roleRepository.create({ role_name: 'admin' });
-      await this.roleRepository.save(adminRole);
+    if (!userRole) {
+      userRole = this.roleRepository.create({ role_name: user.role });
+      await this.roleRepository.save(userRole);
     }
 
     user.password = bcrypt.hashSync(user.password, 8);
-    user.role = adminRole;
+    user.role = userRole;
 
     try {
       await this.userRepository.save(user);
