@@ -14,7 +14,6 @@ export class AuthService {
   async signIn(first_name: string, pass: string): Promise<any> {
     const user = await this.usersService.findEmail(first_name);
     const userRole = await this.usersService.findOneRole(user.id);
-
     const comparePass = bcrypt.compareSync(pass, user.password);
 
     if (comparePass === false) {
