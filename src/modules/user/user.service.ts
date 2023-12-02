@@ -23,6 +23,11 @@ const selectUser: string[] = [
   'updated_at',
 ];
 
+interface IUserBase {
+  password: string;
+  role: string;
+}
+
 @Injectable()
 export class UserService {
   constructor(
@@ -30,7 +35,7 @@ export class UserService {
     @InjectRepository(Role) private roleRepository: Repository<Role>,
   ) {}
 
-  async create(user: any): Promise<any> {
+  async create(user: IUserBase): Promise<string> {
     let userRole = await this.roleRepository.findOne({
       where: { role_name: user.role },
     });
@@ -41,10 +46,15 @@ export class UserService {
     }
 
     user.password = bcrypt.hashSync(user.password, 8);
-    user.role = userRole;
+    user.role = userRole.role_name;
+    const newUser = this.userRepository.create({
+      ...user,
+      password: user.password,
+      role: userRole,
+    });
 
     try {
-      await this.userRepository.save(user);
+      await this.userRepository.save(newUser);
     } catch (error) {
       throw new ConflictException('No No');
     }
