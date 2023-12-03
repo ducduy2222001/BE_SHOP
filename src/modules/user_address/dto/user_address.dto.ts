@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateUserAddressDto {
   @IsNotEmpty()
@@ -11,12 +11,10 @@ export class CreateUserAddressDto {
   city: string;
 
   @IsNotEmpty()
-  @IsNumber()
   zip_code: number;
 
   @IsNotEmpty()
   country: string;
 
-  @IsNotEmpty()
   is_default: boolean;
 }
