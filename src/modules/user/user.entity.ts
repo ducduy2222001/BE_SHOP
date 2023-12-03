@@ -6,7 +6,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
-  JoinColumn,
 } from 'typeorm';
 
 import { Role } from '../role/role.entity';
@@ -44,7 +43,6 @@ export class User {
   user_address: UserAddress[];
 
   @ManyToOne(() => Role, (role) => role.users)
-  @JoinColumn({ name: 'role_id' })
   role: Role;
 
   @OneToMany(() => Order, (order) => order.user)

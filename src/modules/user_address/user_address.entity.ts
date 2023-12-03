@@ -8,7 +8,7 @@ export class UserAddress {
   id: number;
 
   @Column()
-  street_number: string;
+  street_number: number;
 
   @Column()
   address_line: string;
