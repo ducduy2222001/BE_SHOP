@@ -27,7 +27,24 @@ export class UserAddressService {
     return this.userAddressRepository.save(address);
   }
 
-  async findAll(user: User): Promise<UserAddress[]> {
-    return this.userAddressRepository.find({ where: { id: user.id } });
+  async findAll(): Promise<UserAddress[]> {
+    return this.userAddressRepository.find();
+  }
+
+  async findOne(id: number): Promise<any> {
+    const address = await this.userAddressRepository.findOne({
+      where: { id },
+    });
+
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .select(['user.first_name', 'user.email'])
+      .getOne();
+
+    if (!address || !user) {
+      throw new Error('Address or User not found');
+    }
+
+    return { address, user };
   }
 }
