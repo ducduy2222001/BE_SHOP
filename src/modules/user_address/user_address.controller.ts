@@ -16,8 +16,13 @@ export class UserAddressController {
     return this.userAddressService.createAddress(userId, addresses);
   }
 
+  @Get()
+  getAllAddressOfUser() {
+    return this.userAddressService.findAll();
+  }
+
   @Get(':userId')
-  getAllAddressOfUser(@Param('userId') user: User) {
-    return this.userAddressService.findAll(user);
+  getByIdAddressOfUser(@Param('userId') user: User) {
+    return this.userAddressService.findOne(user.id);
   }
 }
