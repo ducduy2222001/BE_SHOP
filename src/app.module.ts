@@ -32,7 +32,6 @@ import { CategoryModule } from './modules/category/category.module';
 import { PromotionModule } from './modules/promotion/promotion.module';
 import { UserAddressModule } from './modules/user_address/user_address.module';
 import { OrderStatusModule } from './modules/order_status/order_status.module';
-
 import { roles } from './modules/role/enum/role.enum';
 
 @Module({

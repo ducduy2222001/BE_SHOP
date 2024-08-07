@@ -38,6 +38,12 @@ export class Product {
   @Column()
   color: string;
 
+  @Column()
+  popular: boolean;
+
+  @Column()
+  sale: boolean;
+
   @CreateDateColumn()
   create_at: Date;
 
