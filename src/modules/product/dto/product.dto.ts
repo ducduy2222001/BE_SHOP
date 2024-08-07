@@ -18,4 +18,8 @@ export class CreateProductDto {
 
   @IsNotEmpty()
   color: string;
+
+  popular: boolean;
+
+  sale: boolean;
 }
